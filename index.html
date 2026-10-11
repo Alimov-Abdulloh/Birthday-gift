@@ -1,1018 +1,380 @@
+
 <!DOCTYPE html>
 <html lang="uz">
 <head>
 <meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width,
-      initial-scale=1.0,
-      maximum-scale=1.0,
-      user-scalable=no">
-
-<title>Tug‘ilgan kuning muborak 🤍</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#ffeaf1">
+<title>Marii uchun 💗</title>
 
 <style>
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
-html,
-body {
-    width: 100%;
-    min-height: 100%;
-    background: #000;
-    overflow-x: hidden;
+:root {
+  --pink: #ed7fa7;
+  --dark-pink: #c94d7c;
+  --cream: #fffaf3;
 }
 
 body {
-    font-family: Arial, sans-serif;
-    color: white;
+  margin: 0;
+  min-height: 100vh;
+  font-family: Georgia, "Times New Roman", serif;
+  background: linear-gradient(145deg, #fff0f5, #ffe1eb, #fff7f5);
+  color: #704354;
+  overflow-x: hidden;
 }
 
-canvas {
-    position: fixed;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    pointer-events: none;
+button {
+  font: inherit;
 }
 
-.content {
-    position: relative;
-    z-index: 2;
-
-    width: 100%;
-    padding: 0 22px 70px;
-
-    text-align: center;
+#hearts {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 5;
 }
 
-/* Yurak uchun joy */
-.heart-space {
-    height: 480px;
+.heart {
+  position: absolute;
+  bottom: -40px;
+  color: #f18db1;
+  opacity: 0;
+  animation: floatUp linear forwards;
+  filter: drop-shadow(0 0 5px #ffc1d5);
 }
 
-
-/* =========================
-   TABRIK
-========================= */
-
-.title {
-    font-family:
-        "Brush Script MT",
-        "Segoe Script",
-        cursive;
-
-    font-size: clamp(31px, 8vw, 52px);
-    line-height: 1.15;
-
-    color: #ff8eaa;
-
-    text-shadow:
-        0 0 7px #ff1744,
-        0 0 18px #ff1744,
-        0 0 35px #ff1744;
-
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) rotate(0deg) scale(.6);
     opacity: 0;
-
-    animation:
-        textAppear 1.8s ease forwards;
-
-    animation-delay: 4.7s;
+  }
+  15% { opacity: .8; }
+  85% { opacity: .65; }
+  100% {
+    transform: translateY(-115vh) rotate(35deg) scale(1.3);
+    opacity: 0;
+  }
 }
 
+#intro {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 24px;
+  position: relative;
+  z-index: 2;
+  transition: opacity .7s, transform .7s;
+}
+
+.intro-heart {
+  font-size: clamp(70px, 18vw, 110px);
+  animation: heartbeat 1.4s infinite;
+  filter: drop-shadow(0 5px 18px #f5a4c2);
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  15% { transform: scale(1.12); }
+  30% { transform: scale(1); }
+  45% { transform: scale(1.07); }
+}
+
+h1 {
+  font-size: clamp(30px, 8vw, 43px);
+  margin: 15px 0 8px;
+  color: var(--dark-pink);
+}
 
 .subtitle {
-    margin-top: 14px;
-
-    font-size: clamp(21px, 6vw, 32px);
-
-    color: #fff0f5;
-
-    text-shadow:
-        0 0 8px #ff5577,
-        0 0 18px #ff1744;
-
-    opacity: 0;
-
-    animation:
-        textAppear 1.8s ease forwards;
-
-    animation-delay: 5.1s;
+  font-size: 17px;
+  line-height: 1.7;
+  max-width: 330px;
 }
 
-
-.text {
-    max-width: 700px;
-
-    margin:
-        38px auto 0;
-
-    font-size:
-        clamp(16px, 4.5vw, 23px);
-
-    line-height: 1.8;
-
-    color: #ffdce6;
-
-    text-shadow:
-        0 0 7px rgba(255, 70, 120, .45);
-
-    opacity: 0;
-
-    animation:
-        textAppear 1.8s ease forwards;
-
-    animation-delay: 5.7s;
+.main-button {
+  margin-top: 22px;
+  padding: 14px 26px;
+  border: none;
+  border-radius: 30px;
+  background: linear-gradient(135deg, #f5a1bf, #df6996);
+  color: white;
+  box-shadow: 0 6px 20px #eaa0bb66;
+  cursor: pointer;
+  transition: transform .2s;
 }
 
-
-.divider {
-    width: 55%;
-    max-width: 350px;
-
-    height: 1px;
-
-    margin: 38px auto;
-
-    background:
-        linear-gradient(
-            90deg,
-            transparent,
-            #ff1744,
-            #ff9ab4,
-            #ff1744,
-            transparent
-        );
-
-    box-shadow:
-        0 0 10px #ff1744;
-
-    opacity: 0;
-
-    animation:
-        textAppear 1.8s ease forwards;
-
-    animation-delay: 6.1s;
+.main-button:active {
+  transform: scale(.96);
 }
 
-
-.final {
-    margin-top: 40px;
-
-    font-size:
-        clamp(19px, 5vw, 28px);
-
-    line-height: 1.6;
-
-    color: #ffe5ed;
-
-    text-shadow:
-        0 0 8px #ff1744,
-        0 0 22px #ff1744;
-
-    opacity: 0;
-
-    animation:
-        textAppear 1.8s ease forwards;
-
-    animation-delay: 6.6s;
+#letterArea {
+  display: none;
+  width: 100%;
+  max-width: 650px;
+  margin: auto;
+  padding: 30px 16px 55px;
+  position: relative;
+  z-index: 2;
+  animation: appear .9s ease both;
 }
 
-
-.cake {
-    margin-top: 24px;
-
-    font-size: 45px;
-
-    filter:
-        drop-shadow(0 0 8px #ff1744)
-        drop-shadow(0 0 20px #ff1744);
-
-    opacity: 0;
-
-    animation:
-        textAppear 1.8s ease forwards;
-
-    animation-delay: 7s;
+@keyframes appear {
+  from { opacity: 0; transform: translateY(25px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-
-@keyframes textAppear {
-
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
+.envelope-stage {
+  text-align: center;
+  padding: 30px 0 42px;
 }
 
+.envelope {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
 
-/* Kichik telefon */
+.envelope-icon {
+  font-size: clamp(100px, 27vw, 145px);
+  display: block;
+  filter: drop-shadow(0 10px 15px #d77c9b44);
+  animation: envelopeFloat 2.3s ease-in-out infinite;
+}
 
-@media (max-width: 380px) {
+@keyframes envelopeFloat {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-9px) rotate(2deg); }
+}
 
-    .heart-space {
-        height: 420px;
-    }
+.envelope-label {
+  color: var(--dark-pink);
+  font-size: 19px;
+  margin-top: 10px;
+}
 
-    .title {
-        font-size: 32px;
-    }
+#openHint {
+  font-size: 14px;
+  opacity: .8;
+  margin-top: 8px;
+}
 
-    .text {
-        font-size: 16px;
-    }
+#letter {
+  display: none;
+  background: var(--cream);
+  border: 1px solid #f3d9d5;
+  border-radius: 5px;
+  padding: clamp(20px, 5vw, 38px);
+  box-shadow: 0 12px 40px #a9547230;
+  position: relative;
+  overflow-wrap: anywhere;
+}
+
+#letter::before {
+  content: "♡";
+  display: block;
+  text-align: center;
+  font-size: 30px;
+  color: #e78baa;
+  margin-bottom: 18px;
+}
+
+.letter-title {
+  text-align: center;
+  font-size: 25px;
+  line-height: 1.5;
+  color: #b84f78;
+  margin-bottom: 25px;
+}
+
+.letter-text {
+  font-size: 17px;
+  line-height: 1.95;
+  white-space: pre-line;
+}
+
+.letter-text p {
+  margin: 0 0 22px;
+}
+
+.signature {
+  text-align: center;
+  color: #b84f78;
+  font-style: italic;
+  font-size: 19px;
+  line-height: 1.8;
+  margin-top: 30px;
+}
+
+.end-heart {
+  text-align: center;
+  font-size: 34px;
+  margin-top: 25px;
+  animation: heartbeat 1.4s infinite;
+}
+
+.footer {
+  text-align: center;
+  font-size: 13px;
+  opacity: .7;
+  margin-top: 25px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
 }
 </style>
 </head>
 
-
 <body>
+<div id="hearts" aria-hidden="true"></div>
 
-<canvas id="canvas"></canvas>
+<section id="intro">
+  <div class="intro-heart">💗</div>
+  <h1>Marii uchun...</h1>
+  <div class="subtitle">
+    Bu kichkina sovg‘a aynan sen uchun tayyorlangan.
+    <br>Bir kichik mo‘jizani ko‘rishga tayyormisan?
+  </div>
+  <button class="main-button" id="startButton">
+    Boshlash 💌
+  </button>
+</section>
 
+<main id="letterArea">
+  <div class="envelope-stage" id="envelopeStage">
+    <button class="envelope" id="envelopeButton"
+            aria-label="Konvertni ochish">
+      <span class="envelope-icon" id="envelopeIcon">💌</span>
+      <span class="envelope-label">Marii, bu xat sen uchun</span>
+      <span id="openHint">Ochish uchun bos 💗</span>
+    </button>
+  </div>
 
-<div class="content">
+  <article id="letter">
+    <div class="letter-title">Tug‘ilgan kuning bilan, Marii 💗</div>
 
-    <div class="heart-space"></div>
+    <div class="letter-text">
+      <p>Bilasanmi, bugun men uchun ham oddiy kun emas. Chunki aynan shu kuni dunyoga men uchun juda qadrli bo‘lgan, borligi bilan hayotimga boshqacha ma’no bergan inson kelgan. Balki sen o‘zingni oddiy inson deb bilarsan, lekin mening qalbimda sening o‘rning oddiy emas. Sen — o‘ylasam beixtiyor tabassum qiladigan, sog‘insam ko‘nglim nimanidir izlaydigan, baxtli bo‘lishingni chin yurakdan istaydigan insonsan.</p>
 
+      <p>Mari, bir narsani tan olaman… Men seni ko‘p xafa qilganman. Ba’zan aytgan gaplarim bilan, ba’zan qilgan ishlarim bilan, balki o‘zim sezmagan holatlarim bilan ham qalbingni og‘ritganman. Balki ayrim paytlarda sen mendan kutgan mehrni bera olmagandirman. Balki sening ko‘nglingni tushunishim, hislaringni asrashim kerak bo‘lgan paytlarda buni uddalay olmagandirman. Buning uchun sendan chin qalbimdan uzr so‘rayman, Marii.</p>
 
-    <div class="title">
-        Tug‘ilgan kuning muborak bo‘lsin,
+      <p>Ba’zan senga bo‘lgan hislarimni so‘z bilan ifodalashga qiynalaman. Chunki ayrim tuyg‘ularni qancha gapirsang ham to‘liq tushuntirib berolmaysan. Men ham seni qanchalik qadrlashimni, sening borliging men uchun qanchalik muhimligini har doim ham to‘g‘ri ifodalay olmasligim mumkin. Lekin bitta narsani bilishingni istayman: sen men uchun shunchaki sevimli inson emas, qalbimda alohida joy egallagan insonsan.</p>
+
+      <p>Tug‘ilgan kuningda senga dunyodagi barcha chiroyli narsalarni tilayman. Ko‘zlaring faqat quvonchdan yoshlansin, qalbing xotirjamlik topsin, orzularing birin-ketin amalga oshsin. Hech qachon o‘zingni keraksiz yoki yolg‘iz his qilma. O‘zingdagi go‘zallikni, qadringni va naqadar ajoyib inson ekaningni unutma. Sen eng yaxshi narsalarga loyiqsan, sevgilim.</p>
+
+      <p>Seni «Mari» deb chaqirganimda, shu kichkina ism ortida men uchun qanchalik qadrli inson turganini faqat o‘zim bilaman. Balki bu oddiygina ismdek tuyular, lekin men uchun u o‘ziga xos. Bu ismni aytganimda xayolimga sen, tabassuming, ovozing va sen bilan bog‘liq xotiralar keladi. Ba’zan oddiygina bir inson butun kuningga ma’no bera oladi. Sen men uchun shunday insonlardan birisan.</p>
+
+      <p>Hayot doim ham biz xohlagandek bo‘lavermaydi. Ba’zan masofalar, vaqt, tashvishlar va aytilmay qolgan so‘zlar orasiga jimlik tushadi. Ba’zan bir-birimizni sog‘insak ham buni yetarlicha bildirolmasligimiz mumkin. Ammo shunday paytlarda ham sening yaxshi bo‘lishingni, yuzingdan tabassum arimasligini, ko‘ngling hech qachon og‘rimasligini istayman. Agar biror kun charchasang, hayot seni toliqtirsa, hamma narsadan zeriksang, shuni unutmagin: bu dunyoda sening baxtingni chin yurakdan istaydigan bir qalb bor.</p>
+
+      <p>Va bilasanmi, men uchun eng chiroyli orzulardan biri — kelajakda bugungi kunni eslab, sening yoningda turib: «Yana bir yoshing bilan tabriklayman, yaxshiyamki, hayotimda borsan», deya olish. Bugun senga faqat chiroyli so‘zlar yozayotgan bo‘lsam, bir kun kelib bu so‘zlarimni amallarim bilan ham isbotlay olishni istayman. Senga berilgan va’dalarning shunchaki va’da bo‘lib qolmasligini, ko‘nglingni asrashni va seni qadrlashni o‘rganishni istayman.</p>
+
+      <p>Tug‘ilgan kuningda senga eng avvalo qalb xotirjamligini tilayman. Hech kim sababli o‘zingni kam his qilma. Orzularingdan voz kechma. Ko‘zlaring faqat baxtdan yoshlansin. O‘zing istagan hayotga erishgin. Har kuni uyg‘onganingda qalbingda bir sabab bilan bo‘lsa ham tabassum paydo bo‘lsin. Seni yaxshi ko‘radigan insonlar doim yoningda bo‘lishsin. Men esa imkonim boricha sening hayotingga og‘riq emas, quvonch olib kiradigan inson bo‘lishni istayman.</p>
+
+      <p>Men kelajakda nimalar bo‘lishini bilmayman. Lekin bir narsani bilaman: bugun sening tug‘ilgan kuningda senga yozayotgan har bir so‘zim samimiy. Sen baxtli bo‘lishingni istayman. Seni kulib turganingda ham, orzularing haqida gapirayotganingda ham, oddiygina o‘zing bo‘lib yurganingda ham qadrlashni istayman.</p>
+
+      <p>Tug‘ilgan kuning muborak bo‘lsin, Marishim.</p>
+
+      <p>Yangi yoshing senga yangi baxtlar, unutilmas xotiralar va qalbing orziqib kutgan go‘zal kunlarni olib kelsin. Hayot seni asrasin. Ko‘nglingni og‘ritgan narsalar ortda qolsin. Har doim o‘zingga yarashgan tabassuming bilan yur.</p>
+
+      <p>Dunyoga kelganing uchun rahmat. Hayotimda borliging uchun rahmat. Men seni tanib, qalbimda senga atalgan shunday go‘zal tuyg‘ular borligini his qilganim uchun ham rahmat.</p>
+
+      <p>Doim baxtli bo‘l, sevgilim. Qalbingdagi eng go‘zal orzularing ro‘yobga chiqsin. Yuzingdagi tabassum hech qachon so‘nmasin. Va qachondir hayotingning muhim kunlarini eslaganingda, bugungi tug‘ilgan kuningda seni chin qalbidan tabriklagan bir inson bo‘lganini iliq his bilan esla.</p>
     </div>
 
-
-    <div class="subtitle">
-        go‘zal qalb egasi! 🤍🌷
+    <div class="signature">
+      Seni chin qalbdan sevuvchi,<br>
+      oq ot mingan oltin sochli shahzodang!!! 💗
     </div>
 
-
-    <div class="text">
-
-        Sen men tanigan insonlar ichida
-        ich-ichingdan ham, tashqi ko‘rinishing
-        bilan ham eng go‘zal insonsan.
-        Hayotimda sen borligingdan juda baxtliman.
-        Hayoting o‘zing kabi go‘zal baxtga to‘la bo‘lsin.
-        Yangi yoshing senga cheksiz muvaffaqiyat,
-        xotirjamlik va quvonch olib kelsin. ✨
-
-    </div>
-
-
-    <div class="divider"></div>
-
-
-    <div class="text">
-
-        Sen qayerga borsang ham,
-        o‘sha joyga yorug‘lik, kulgu va
-        juda ko‘p mehr olib borasan.
-        Har doim o‘zingdek ajoyib inson bo‘lib qol —
-        sen borliging uchun ham mening dunyoyim
-        yanada go‘zal. 🤍
-
-    </div>
-
-
-    <div class="divider"></div>
-
-
-    <div class="text">
-
-        Dunyodagi eng yaxshi va eng go‘zal
-        narsalarni ko‘rib ham,
-        hatto ularga tegib ham bo‘lmaydi —
-        ularni qalb bilan his qilish kerak. 🕊️
-
-    </div>
-
-
-    <div class="divider"></div>
-
-
-    <div class="final">
-
-        Bugungi kuningdan zavq ol. 💗
-
-        <br><br>
-
-        Tug‘ilgan kuning muborak bo‘lsin!
-        💕🎂✨
-
-    </div>
-
-
-    <div class="cake">
-        ♡ &nbsp; 🎂 &nbsp; ♡
-    </div>
-
-</div>
-
-
+    <div class="end-heart">💗</div>
+    <div class="footer">Faqat sen uchun, Marii ♡</div>
+  </article>
+</main>
 
 <script>
+const heartsContainer = document.getElementById("hearts");
+const intro = document.getElementById("intro");
+const letterArea = document.getElementById("letterArea");
+const startButton = document.getElementById("startButton");
+const envelopeButton = document.getElementById("envelopeButton");
+const envelopeStage = document.getElementById("envelopeStage");
+const envelopeIcon = document.getElementById("envelopeIcon");
+const letter = document.getElementById("letter");
 
-/* ==================================================
-   CANVAS
-================================================== */
-
-const canvas =
-    document.getElementById("canvas");
-
-const ctx =
-    canvas.getContext("2d");
-
-let W = 0;
-let H = 0;
-
-let particles = [];
-let backgroundParticles = [];
-
-let startTime = 0;
-
-
-/* ==================================================
-   RANGLAR
-================================================== */
-
-const colors = [
-
-    "#ff1744",
-    "#ff2855",
-    "#ff4168",
-    "#ff5d7d",
-    "#ff7893",
-    "#ff97aa",
-    "#ffb8c7",
-    "#ffd6df",
-    "#fff0f4",
-    "#ffffff"
-
-];
-
-
-/* ==================================================
-   EKRAN
-================================================== */
-
-function resize() {
-
-    W = window.innerWidth;
-    H = window.innerHeight;
-
-    const dpr =
-        Math.min(
-            window.devicePixelRatio || 1,
-            1.5
-        );
-
-    canvas.width =
-        W * dpr;
-
-    canvas.height =
-        H * dpr;
-
-    canvas.style.width =
-        W + "px";
-
-    canvas.style.height =
-        H + "px";
-
-    ctx.setTransform(
-        dpr,
-        0,
-        0,
-        dpr,
-        0,
-        0
-    );
-
-    createHeart();
-    createBackground();
-}
-
-window.addEventListener(
-    "resize",
-    resize
-);
-
-
-/* ==================================================
-   YURAK FORMULASI
-================================================== */
-
-function heart(t) {
-
-    return {
-
-        x:
-            16 *
-            Math.pow(
-                Math.sin(t),
-                3
-            ),
-
-        y:
-            -(
-                13 *
-                Math.cos(t)
-
-                -
-
-                5 *
-                Math.cos(2 * t)
-
-                -
-
-                2 *
-                Math.cos(3 * t)
-
-                -
-
-                Math.cos(4 * t)
-            )
-
-    };
-
-}
-
-
-/* ==================================================
-   ASOSIY YURAK ZARRACHALARI
-================================================== */
+let heartTimer;
 
 function createHeart() {
+  const heart = document.createElement("span");
+  heart.className = "heart";
 
-    particles = [];
+  const symbols = ["♡", "♥", "💗", "💕"];
+  heart.textContent = symbols[Math.floor(Math.random() * symbols.length)];
 
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = (12 + Math.random() * 20) + "px";
+  heart.style.animationDuration = (6 + Math.random() * 7) + "s";
 
-    /*
-       Telefonda yengil ishlashi uchun.
-    */
+  heartsContainer.appendChild(heart);
 
-    const count =
-        W < 600
-        ? 500
-        : 700;
-
-
-    /*
-       Yurak o'lchami
-    */
-
-    const scale =
-        Math.min(W, H) / 40;
-
-
-    /*
-       Yurak markazi
-    */
-
-    const centerX =
-        W / 2;
-
-    const centerY =
-        H * 0.28;
-
-
-    for (
-        let i = 0;
-        i < count;
-        i++
-    ) {
-
-        /*
-           Yurak konturidagi nuqta
-        */
-
-        const t =
-            Math.random() *
-            Math.PI *
-            2;
-
-
-        const p =
-            heart(t);
-
-
-        /*
-           Faqat kontur atrofida.
-
-           Ichini to'ldirmaydi.
-        */
-
-        const spread =
-            (
-                Math.random() - 0.5
-            ) *
-            scale *
-            0.7;
-
-
-        /*
-           Konturga perpendikulyar
-           yo'nalish.
-        */
-
-        const angle =
-            t +
-            Math.PI / 2;
-
-
-        const targetX =
-            centerX +
-            p.x * scale +
-            Math.cos(angle) * spread;
-
-
-        const targetY =
-            centerY +
-            p.y * scale +
-            Math.sin(angle) * spread;
-
-
-        /*
-           Boshlang'ich joy.
-
-           Zarrachalar chap va o'ng
-           tomondan uchib keladi.
-        */
-
-        const fromLeft =
-            Math.random() < 0.5;
-
-
-        const startX =
-            fromLeft
-
-            ? -30 - Math.random() * W * 0.6
-
-            : W + 30 + Math.random() * W * 0.6;
-
-
-        /*
-           Turli balandliklar.
-        */
-
-        const startY =
-            H * 0.08 +
-            Math.random() * H * 0.48;
-
-
-        /*
-           Shamol uchun
-           egri yo'l.
-        */
-
-        particles.push({
-
-            startX:
-                startX,
-
-            startY:
-                startY,
-
-            targetX:
-                targetX,
-
-            targetY:
-                targetY,
-
-            x:
-                startX,
-
-            y:
-                startY,
-
-            size:
-                0.8 +
-                Math.random() * 1.6,
-
-            color:
-                colors[
-                    Math.floor(
-                        Math.random() *
-                        colors.length
-                    )
-                ],
-
-            delay:
-                Math.random() * 1.5,
-
-            progress:
-                0,
-
-            speed:
-                0.007 +
-                Math.random() * 0.008,
-
-            wave:
-                10 +
-                Math.random() * 25,
-
-            waveSpeed:
-                2 +
-                Math.random() * 2,
-
-            phase:
-                Math.random() *
-                Math.PI * 2,
-
-            direction:
-                fromLeft
-                ? 1
-                : -1
-
-        });
-
-    }
-
+  heart.addEventListener("animationend", () => heart.remove());
 }
 
-
-/* ==================================================
-   ORQA FON
-================================================== */
-
-function createBackground() {
-
-    backgroundParticles = [];
-
-
-    const count =
-        W < 600
-        ? 45
-        : 70;
-
-
-    for (
-        let i = 0;
-        i < count;
-        i++
-    ) {
-
-        backgroundParticles.push({
-
-            x:
-                Math.random() * W,
-
-            y:
-                Math.random() * H,
-
-            size:
-                0.6 +
-                Math.random() * 1.5,
-
-            color:
-                colors[
-                    Math.floor(
-                        Math.random() *
-                        colors.length
-                    )
-                ],
-
-            speed:
-                0.05 +
-                Math.random() * 0.12,
-
-            phase:
-                Math.random() *
-                Math.PI * 2
-
-        });
-
-    }
-
+function startHearts() {
+  if (heartTimer) return;
+  for (let i = 0; i < 12; i++) {
+    setTimeout(createHeart, i * 180);
+  }
+  heartTimer = setInterval(createHeart, 550);
 }
 
-
-/* ==================================================
-   YURAKCHA CHIZISH
-================================================== */
-
-function drawHeart(
-    x,
-    y,
-    size,
-    color,
-    alpha
-) {
-
-    ctx.save();
-
-    ctx.globalAlpha =
-        alpha;
-
-    ctx.fillStyle =
-        color;
-
-    ctx.shadowColor =
-        color;
-
-    ctx.shadowBlur =
-        size * 3;
-
-    ctx.beginPath();
-
-    const s = size;
-
-    ctx.moveTo(
-        x,
-        y + s
-    );
-
-    ctx.bezierCurveTo(
-
-        x - s * 1.7,
-        y - s * 0.4,
-
-        x - s * 1.2,
-        y - s * 1.5,
-
-        x,
-        y - s * 0.5
-
-    );
-
-    ctx.bezierCurveTo(
-
-        x + s * 1.2,
-        y - s * 1.5,
-
-        x + s * 1.7,
-        y - s * 0.4,
-
-        x,
-        y + s
-
-    );
-
-    ctx.fill();
-
-    ctx.restore();
-
-}
-
-
-/* ==================================================
-   ANIMATSIYA
-================================================== */
-
-function animate(now) {
-
-    ctx.clearRect(
-        0,
-        0,
-        W,
-        H
-    );
-
-
-    /*
-       Boshlanganidan beri sekund.
-    */
-
-    const elapsed =
-        (now - startTime) /
-        1000;
-
-
-    /* =================================================
-       ORQA FON
-    ================================================= */
-
-    for (
-        const p of backgroundParticles
-    ) {
-
-        p.y -= p.speed;
-
-        if (
-            p.y < -10
-        ) {
-
-            p.y =
-                H + 10;
-
-            p.x =
-                Math.random() *
-                W;
-
-        }
-
-
-        const pulse =
-            1 +
-            Math.sin(
-                now * 0.003 +
-                p.phase
-            ) *
-            0.2;
-
-
-        drawHeart(
-
-            p.x,
-
-            p.y,
-
-            p.size * pulse,
-
-            p.color,
-
-            0.35
-
-        );
-
-    }
-
-
-    /* =================================================
-       ASOSIY ZARRALAR
-    ================================================= */
-
-    for (
-        const p of particles
-    ) {
-
-        /*
-           Har bir zarracha
-           biroz kechikib keladi.
-        */
-
-        if (
-            elapsed >
-            p.delay
-        ) {
-
-            p.progress +=
-                p.speed;
-
-        }
-
-
-        const progress =
-            Math.min(
-                p.progress,
-                1
-            );
-
-
-        /*
-           Smooth easing.
-        */
-
-        const ease =
-            progress *
-            progress *
-            (
-                3 -
-                2 * progress
-            );
-
-
-        /*
-           To'g'ri chiziq emas.
-
-           Shamoldek egri yo'l.
-        */
-
-        const curve =
-            Math.sin(
-                ease *
-                Math.PI *
-                p.waveSpeed +
-                p.phase
-            ) *
-            p.wave *
-            (1 - ease);
-
-
-        /*
-           X yo'nalishdagi asosiy harakat.
-        */
-
-        const baseX =
-            p.startX +
-            (
-                p.targetX -
-                p.startX
-            ) *
-            ease;
-
-
-        /*
-           Y yo'nalish.
-        */
-
-        const baseY =
-            p.startY +
-            (
-                p.targetY -
-                p.startY
-            ) *
-            ease;
-
-
-        /*
-           Shamol egri harakati.
-        */
-
-        const x =
-            baseX;
-
-        const y =
-            baseY +
-            curve;
-
-
-        /*
-           Oxirida yurak joyiga
-           aniq tushadi.
-        */
-
-        p.x = x;
-        p.y = y;
-
-
-        /*
-           Zarracha hali yo'lda bo'lsa
-           biroz yorqinroq.
-        */
-
-        let alpha =
-            0.65 +
-            ease * 0.30;
-
-
-        /*
-           Yurak yig'ilgandan keyin
-           juda sekin yaltiraydi.
-        */
-
-        if (
-            progress >= 1
-        ) {
-
-            alpha =
-                0.72 +
-                Math.sin(
-                    now * 0.003 +
-                    p.phase
-                ) *
-                0.22;
-
-        }
-
-
-        drawHeart(
-
-            x,
-
-            y,
-
-            p.size,
-
-            p.color,
-
-            alpha
-
-        );
-
-    }
-
-
-    requestAnimationFrame(
-        animate
-    );
-
-}
-
-
-/* ==================================================
-   START
-================================================== */
-
-resize();
-
-startTime =
-    performance.now();
-
-requestAnimationFrame(
-    animate
-);
-
+startHearts();
+
+startButton.addEventListener("click", () => {
+  intro.style.opacity = "0";
+  intro.style.transform = "translateY(-20px)";
+
+  setTimeout(() => {
+    intro.style.display = "none";
+    letterArea.style.display = "block";
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, 650);
+});
+
+envelopeButton.addEventListener("click", () => {
+  envelopeButton.disabled = true;
+  envelopeIcon.textContent = "💌";
+  envelopeIcon.style.animation = "none";
+  envelopeIcon.style.transform = "scale(1.15)";
+
+  setTimeout(() => {
+    envelopeIcon.textContent = "💖";
+    envelopeStage.style.transition = "opacity .6s, transform .6s";
+    envelopeStage.style.opacity = "0";
+    envelopeStage.style.transform = "translateY(-25px)";
+
+    setTimeout(() => {
+      envelopeStage.style.display = "none";
+      letter.style.display = "block";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }, 600);
+  }, 500);
+});
 </script>
-
 </body>
 </html>
